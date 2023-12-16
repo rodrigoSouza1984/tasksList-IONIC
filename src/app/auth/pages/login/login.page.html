@@ -1,0 +1,153 @@
+<!--https://ionic.io/ionicons   documentacao sobre os icones-->
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col 
+        size-sm = "12"
+        size-md = "8"
+        size-lg = "6"
+        size-xl = "6">
+                <!--link mostrando a mudanca de text-center para class="ion-text-center"-->
+        <h1 class="ion-text-center"><!--atributo adicionado text-center-->
+          <ion-icon 
+            name="checkmark-done" 
+            color="primary" 
+            class="icon-7em">
+          </ion-icon>
+          <!--ion-icon = icone ionic
+          name do icone = done all
+          color = primaria
+          class = chamada icon 7em vai ser criada no css
+          7 = tamanho
+          em = unidade de medida-->
+        </h1>
+
+        <!--abaixo do h1 teremos nossos inputs-->
+
+        <form 
+          [formGroup]="authForm" 
+          (submit)="onSubmit(authProviders.Email)"> <!--aki chamamos a propriedade que criamos em login.page.ts-->
+
+          <ng-container 
+            *ngIf= "!configs.isSignIn">
+
+            <ion-item><!--cria input name  em uma situacao de criar conta aparece esse campo o *ngIf que controla essa situacao acima na tag-->
+
+              <ion-icon name="person-add-outline"  color="primary" slot="start">
+              </ion-icon>
+              <ion-input 
+                type="text" 
+                placeholder="Name" 
+                formControlName="name">
+              </ion-input>
+              <ion-note 
+                slot="end" 
+                color="danger" 
+                *ngIf="name.dirty && name.hasError('required')">
+              Required</ion-note>
+              <ion-note 
+                slot="end" 
+                color="danger" 
+                *ngIf="name.dirty && name.hasError('minlength')">
+              Min 3 caracteres</ion-note>
+              
+            </ion-item><!--fecha input password-->
+
+          </ng-container>
+
+          <ion-item><!-- cria imput email-->
+            <ion-icon 
+              name="mail" 
+              color="primary" 
+              slot="start">
+            </ion-icon>
+            <!--slot = muito conhecido em web components ja que o ionic é baseado em web components
+            ele adotou essa especificacao, o que ele faz é indicar o local dentro do ion-item
+            que é o componente pai, para posicionar esse icone, existem alguns slots que o ionic nos disponibilza
+            esta na documentacao, usamos o slot start ele coloca esse icone no inicio da linha
+            quando nao adicionamos o slot ele automaticamente é colocado no slot default-->
+            <ion-input 
+              type="email" 
+              placeholder="Email" 
+              formControlName="email" 
+              inputmode="email" 
+              autofocus="true">
+            </ion-input>
+            <!-- inputmode indica que quando formos para esse campo o ionic vai mostrar o teclado mais
+            apropriado para email, temos outros inputmode tb esta na documentacao -->
+          <ion-note 
+            slot="end" 
+            color="danger" 
+            *ngIf="email.dirty && email.hasError('required')">
+          Required</ion-note>
+          <ion-note 
+            slot="end" 
+            color="danger" 
+            *ngIf="email.dirty && email.hasError('email')">
+          Invalid email</ion-note>
+
+          </ion-item><!--fecha input email-->
+
+
+          <ion-item><!--cria input password-->
+            <ion-icon 
+              name="lock-closed" 
+              color="primary" 
+              slot="start">
+            </ion-icon>
+            <ion-input 
+              type="password" 
+              placeholder="Password" 
+              formControlName="password">
+            </ion-input>
+            <ion-note 
+              slot="end" 
+              color="danger" 
+              *ngIf="password.dirty && password.hasError('required')">
+            Required</ion-note>
+            <ion-note 
+              slot="end" 
+              color="danger" 
+              *ngIf="password.dirty && password.hasError('minlength')">
+            Min 6 caracteres</ion-note>
+
+          </ion-item><!--fecha input password-->
+
+          <!--botao login criado abaixo-->
+          <ion-button 
+            expand="block" 
+            type="submit" 
+            [disabled]="authForm.invalid">
+          {{configs.action}}</ion-button>
+          <!--expand => temos a opcao bloc e full
+          block = ele ocupa todo o espaco e tem as bordas arredondadas
+          full = ele ocupa todo o espaco e nao tem as bordas arredondads-->
+
+        </form>
+
+
+        <!-- abaixo vamos criar alguns botoes, create account-->
+        <ion-button 
+          expand="block" 
+          fill="clear" 
+          (click)="changeAuthAction()">
+        {{  configs.actionChange }}</ion-button>
+        <!--expand => temos a opcao bloc e full
+        block = ele ocupa todo o espaco e tem as bordas arredondadas
+        full = ele ocupa todo o espaco e nao tem as bordas arredondads
+        fill = nao preenche com cor no botao mais deixa a escrita na cor-->
+
+        <ion-button 
+          expand="block" 
+          (click)="onSubmit(authProviders.Facebook)" >
+        <ion-icon name="logo-facebook"slot="start"></ion-icon>
+        Login with Facebook
+        </ion-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

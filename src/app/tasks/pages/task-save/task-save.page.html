@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tasks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{pageTitle}}</ion-title>
+    <app-logout-button slot="end" menu="main-menu"></app-logout-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <Form [formGroup]="taskForm" (submit)="onSubmit()">
+    <ion-item>
+      <ion-icon name="newspaper-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+          type="text" 
+          placeholder="Title"
+          autofocus="true" 
+          inputmode="text" 
+          formControlName="title"
+        ></ion-input>
+        <ion-toggle
+          *ngIf="taskId"
+          slot="end"
+          color="primary"
+          formControlName="done"
+        ></ion-toggle>
+    </ion-item>
+  
+    <ion-button expand="full" type="submit" [disabled]="taskForm.invalid">Save</ion-button>
+  </Form>
+</ion-content>
+
